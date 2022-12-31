@@ -7,9 +7,11 @@ import Contact from "./pages/Contact";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import Reset from "./pages/Auth/Reset";
+import app from './services/firebase'
+import {ToastContainer} from "react-toastify";
+import React from "react";
 
 function App() {
-    // const [first, setFirst] = useState("");
     return (
         <>
             <BrowserRouter>
@@ -23,6 +25,12 @@ function App() {
                 </Routes>
                 <Footer/>
             </BrowserRouter>
+            <ToastContainer
+                position={'top-left'}
+                pauseOnHover={true}
+                style={{fontSize: 16}}
+                autoClose={2000}
+            />
         </>
     );
 }

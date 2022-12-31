@@ -1,8 +1,11 @@
-import {useState, useCallback} from 'react';
+import React, {useState} from 'react';
 import styles from './style.module.scss';
-import {Link, NavLink, NavLinkProps} from 'react-router-dom';
+import {Link, NavLink, useNavigate} from 'react-router-dom';
 import {HiShoppingCart, HiOutlineMenuAlt3} from 'react-icons/hi';
 import {FaTimes} from 'react-icons/fa';
+import {signOut} from 'firebase/auth';
+import {auth} from "../../services/firebase";
+import {toast} from "react-toastify";
 
 const logo: JSX.Element = (
     <div className={styles["logo"]}>
@@ -26,9 +29,9 @@ const cart: JSX.Element = (
         </Link>
     </span>
 )
-type myType = {}
 const Header = () => {
     const [showMenu, setShowMenu] = useState(false);
+    const navigate = useNavigate();
     const toggleMenu = () => {
         setShowMenu(!showMenu);
     }
@@ -37,6 +40,16 @@ const Header = () => {
     }
     const activeLink = ({isActive}: { isActive: boolean }): string => {
         return isActive ? styles["active"] : "";
+    }
+    const logoutUser = (event: React.FormEvent<HTMLAnchorElement>) => {
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            toast.success('Logout Successfully.')
+            navigate('/')
+        }).catch((error) => {
+            // An error happened.
+            toast.error('An error happened.')
+        });
     }
     return (
         <header>
@@ -73,6 +86,8 @@ const Header = () => {
                             <NavLink to={'/login'} className={activeLink}>Login</NavLink>
                             <NavLink to={'/register'} className={activeLink}>Register</NavLink>
                             <NavLink to={'/order-history'} className={activeLink}>My Orders</NavLink>
+                            <NavLink to={'/order-history'} className={activeLink}>My Orders</NavLink>
+                            <NavLink to={'/'} className={activeLink} onClick={logoutUser}>Sign out</NavLink>
                         </span>
                         {cart}
                     </div>
