@@ -6,6 +6,11 @@ import {FaTimes, FaUserCircle} from 'react-icons/fa';
 import {onAuthStateChanged, signOut} from 'firebase/auth';
 import {auth} from "../../services/firebase";
 import {toast} from "react-toastify";
+import {useAppSelector, useAppDispatch} from '../../redux/hooks';
+import {SET_ACTIVE_USER, REMOVE_ACTIVE_USER} from "../../redux/slice/authSlice";
+import _ from 'lodash';
+import ShowOnLogin from "../ShowOnLogin";
+import ShowOnLogout from "../ShowOnLogout";
 
 const logo: JSX.Element = (
     <div className={styles["logo"]}>
@@ -30,8 +35,9 @@ const cart: JSX.Element = (
     </span>
 )
 const Header = () => {
-    const [displayName, setDispayName] = useState<string | null>(null)
     const [showMenu, setShowMenu] = useState(false);
+    const userName = useAppSelector(state => state.auth.userName);
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const toggleMenu = () => {
         setShowMenu(!showMenu);
@@ -45,26 +51,30 @@ const Header = () => {
     const logoutUser = (event: React.FormEvent<HTMLAnchorElement>) => {
         signOut(auth).then(() => {
             // Sign-out successful.
-            toast.success('Logout Successfully.')
-            navigate('/')
+            toast.success('Logout Successfully.');
+            dispatch(REMOVE_ACTIVE_USER());
+            navigate('/');
         }).catch((error) => {
             // An error happened.
             toast.error('An error happened.')
         });
     }
     useEffect(() => {
-        const unsub = onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, (user) => {
             if (user) {
-                const uid = user.uid;
-                const displayName = user.displayName;
-                setDispayName(displayName);
-            } else {
-                setDispayName(null);
+                const {uid, email, displayName} = user;
+                // setDispayName(displayName);
+                dispatch(SET_ACTIVE_USER({
+                    userId: uid,
+                    email: email,
+                    userName: displayName ? displayName : _.camelCase(email?.substring(0, email.indexOf('@')))  // @gmail.com (10)
+                }))
             }
         });
-        return () => {
-            unsub();
-        }
+        // return () => {
+        //     console.log('end effect')
+        //     unsub();
+        // }
     }, [])
     return (
         <header>
@@ -98,16 +108,26 @@ const Header = () => {
                     </ul>
                     <div onClick={hideMenu} className={styles["header-right"]}>
                         <span className={styles.links}>
-                            <NavLink to={'/login'} className={activeLink}>
-                                Login
-                            </NavLink>
-                             <a href="#">
-                                <FaUserCircle size={16}/>
-                                Hi, {displayName}
-                             </a>
-                            <NavLink to={'/register'} className={activeLink}>Register</NavLink>
-                            <NavLink to={'/order-history'} className={activeLink}>My Orders</NavLink>
-                            <NavLink to={'/'} onClick={logoutUser}>Sign out</NavLink>
+                            <ShowOnLogout>
+                                <NavLink to={'/login'} className={activeLink}>
+                                    Login
+                                </NavLink>
+                            </ShowOnLogout>
+                            <ShowOnLogin>
+                                <a href="" style={{color:'#ff7722'}}>
+                                    <FaUserCircle size={16}/>
+                                    Hi, {userName}
+                                </a>
+                            </ShowOnLogin>
+                            <ShowOnLogout>
+                                <NavLink to={'/register'} className={activeLink}>Register</NavLink>
+                            </ShowOnLogout>
+                            <ShowOnLogin>
+                                <NavLink to={'/order-history'} className={activeLink}>My Orders</NavLink>
+                            </ShowOnLogin>
+                            <ShowOnLogin>
+                                <NavLink to={'/'} onClick={logoutUser}>Sign out</NavLink>
+                            </ShowOnLogin>
                         </span>
                         {cart}
                     </div>
