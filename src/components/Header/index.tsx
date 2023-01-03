@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './style.module.scss';
 import {Link, NavLink, useNavigate} from 'react-router-dom';
 import {HiShoppingCart, HiOutlineMenuAlt3} from 'react-icons/hi';
-import {FaTimes} from 'react-icons/fa';
-import {signOut} from 'firebase/auth';
+import {FaTimes, FaUserCircle} from 'react-icons/fa';
+import {onAuthStateChanged, signOut} from 'firebase/auth';
 import {auth} from "../../services/firebase";
 import {toast} from "react-toastify";
 
@@ -30,6 +30,7 @@ const cart: JSX.Element = (
     </span>
 )
 const Header = () => {
+    const [displayName, setDispayName] = useState<string | null>(null)
     const [showMenu, setShowMenu] = useState(false);
     const navigate = useNavigate();
     const toggleMenu = () => {
@@ -51,9 +52,23 @@ const Header = () => {
             toast.error('An error happened.')
         });
     }
+    useEffect(() => {
+        const unsub = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const uid = user.uid;
+                const displayName = user.displayName;
+                setDispayName(displayName);
+            } else {
+                setDispayName(null);
+            }
+        });
+        return () => {
+            unsub();
+        }
+    }, [])
     return (
         <header>
-            <div className={styles["header"]}>
+            <div className={styles.header}>
                 {logo}
                 <nav className={showMenu ? `${styles["show-nav"]}` : `${styles["hide-menu"]}`}>
                     <div
@@ -82,12 +97,17 @@ const Header = () => {
                         </li>
                     </ul>
                     <div onClick={hideMenu} className={styles["header-right"]}>
-                        <span className={styles["links"]}>
-                            <NavLink to={'/login'} className={activeLink}>Login</NavLink>
+                        <span className={styles.links}>
+                            <NavLink to={'/login'} className={activeLink}>
+                                Login
+                            </NavLink>
+                             <a href="#">
+                                <FaUserCircle size={16}/>
+                                Hi, {displayName}
+                             </a>
                             <NavLink to={'/register'} className={activeLink}>Register</NavLink>
                             <NavLink to={'/order-history'} className={activeLink}>My Orders</NavLink>
-                            <NavLink to={'/order-history'} className={activeLink}>My Orders</NavLink>
-                            <NavLink to={'/'} className={activeLink} onClick={logoutUser}>Sign out</NavLink>
+                            <NavLink to={'/'} onClick={logoutUser}>Sign out</NavLink>
                         </span>
                         {cart}
                     </div>

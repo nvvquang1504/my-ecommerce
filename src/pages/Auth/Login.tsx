@@ -1,5 +1,5 @@
-import {GoogleAuthProvider, signInWithPopup} from "firebase/auth";
-import React, {useState, useRef} from "react";
+import {GoogleAuthProvider, onAuthStateChanged, signInWithPopup} from "firebase/auth";
+import React, {useState, useRef, useEffect} from "react";
 import styles from './style.module.scss';
 import loginImg from '../../assets/login.png';
 import {Link, useNavigate} from 'react-router-dom';
@@ -12,13 +12,12 @@ import Loader from "../../components/Loader";
 
 const Login = () => {
 
-    const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
-    const [isLoading, setIsLoading] = useState(false);
     const provider = new GoogleAuthProvider();
+    const navigate = useNavigate();
     const loginWithUser = (event: React.FormEvent<HTMLFormElement>): void => {
-
         event.preventDefault();
         const email = emailRef.current?.value;
         const password = passwordRef.current?.value;
@@ -29,7 +28,7 @@ const Login = () => {
                     // Signed in
                     const user = userCredential.user;
                     setIsLoading(false);
-                    toast.success('Login successfull');
+                    toast.success('Login successfull!');
                     navigate('/');// Navigate to homepage
                 })
                 .catch((error) => {
@@ -56,6 +55,7 @@ const Login = () => {
                 }
             });
     }
+
     return (
         <>
             {isLoading && <Loader/>}
@@ -86,9 +86,6 @@ const Login = () => {
                 </Card>
             </section>
         </>
-
     )
-        ;
 };
-
 export default Login;
