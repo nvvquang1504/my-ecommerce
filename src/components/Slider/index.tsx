@@ -7,13 +7,11 @@ const Slider = () => {
     const [currentSlide, setCurrentSlide] = useState<number>(0);
     const sliderLength = sliderData.length;
     const prevSlide = () => {
-        setCurrentSlide(prevSlide => prevSlide - 1)
+        setCurrentSlide(currentSlide - 1);
     }
     const nextSlide = () => {
-        setCurrentSlide(prevSlide => prevSlide + 1)
+        setCurrentSlide(currentSlide + 1);
     }
-    console.log(currentSlide);
-    console.log(sliderLength);
     return (
         <div className={'slider'}>
             {currentSlide !== 0 && <AiOutlineArrowLeft className={'arrow prev'} onClick={prevSlide}/>}
