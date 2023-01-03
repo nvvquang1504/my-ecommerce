@@ -1,9 +1,10 @@
 import styles from './style.module.scss';
+import Slider from "../../components/Slider";
 
 const Home = () => {
     return (
         <div>
-            <h1>Home</h1>
+            <Slider/>
         </div>
     );
 };
