@@ -1,29 +1,37 @@
+import React from "react";
 import './App.scss'
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import Reset from "./pages/Auth/Reset";
-import app from './services/firebase'
+import AdminRoute from "./utils/AdminRoute";
 import {ToastContainer} from "react-toastify";
-import React from "react";
+import Admin from "./pages/Admin";
+
 
 function App() {
     return (
         <>
             <BrowserRouter>
-                <Header/>
                 <Routes>
                     <Route path={'/'} element={<Home/>}/>
                     <Route path={'/contact'} element={<Contact/>}/>
                     <Route path={'/login'} element={<Login/>}/>
                     <Route path={'/register'} element={<Register/>}/>
                     <Route path={'/reset'} element={<Reset/>}/>
+                    <Route path={'/admin'} element={
+                        <AdminRoute element={
+                            <Admin/>
+                        }/>
+                    }>
+                        <Route path={'products'} element={<h1>Product tab</h1>}/>
+                        <Route path={'users'} element={<h1>User tab</h1>}/>
+                    </Route>
+
+                    <Route path={'*'} element={<h1>Not found</h1>}/>
                 </Routes>
-                <Footer/>
             </BrowserRouter>
             <ToastContainer
                 position={'top-left'}

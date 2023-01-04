@@ -1,6 +1,6 @@
 import styles from './style.module.scss';
 import Slider from "../../components/Slider";
-
+import {withLayout} from "../../utils/withLayout";
 const Home = () => {
     return (
         <div>
@@ -9,4 +9,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default withLayout(Home);
