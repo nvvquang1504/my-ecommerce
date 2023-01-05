@@ -5,27 +5,46 @@ import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import {MdOutlineSpaceDashboard, MdOutlineProductionQuantityLimits} from 'react-icons/md';
 import {HiOutlineUserGroup} from 'react-icons/hi';
+import {NavLink, useLocation} from "react-router-dom";
+
 
 export const mainListItems = (
     <React.Fragment>
-        <ListItemButton>
-            <ListItemIcon>
-                <MdOutlineSpaceDashboard/>
-            </ListItemIcon>
-            <ListItemText primary="Dashboard"/>
-        </ListItemButton>
-        <ListItemButton>
-            <ListItemIcon>
-                <MdOutlineProductionQuantityLimits/>
-            </ListItemIcon>
-            <ListItemText primary="Products"/>
-        </ListItemButton>
-        <ListItemButton>
-            <ListItemIcon>
-                <HiOutlineUserGroup/>
-            </ListItemIcon>
-            <ListItemText primary="Users"/>
-        </ListItemButton>
+        <NavLink
+            to={'dashboard'}
+            children={({isActive}) => {
+                return (<ListItemButton selected={!!isActive}>
+                    <ListItemIcon>
+                        <MdOutlineSpaceDashboard/>
+                    </ListItemIcon>
+                    <ListItemText primary="Dashboard"/>
+                </ListItemButton>)
+            }}
+        />
+
+        {/*</NavLink>*/}
+        <NavLink
+            to={'products'}
+            children={({isActive}) => {
+                return (<ListItemButton selected={!!isActive}>
+                    <ListItemIcon>
+                        <MdOutlineProductionQuantityLimits/>
+                    </ListItemIcon>
+                    <ListItemText primary="Products"/>
+                </ListItemButton>)
+            }}
+        />
+        <NavLink
+            to={'users'}
+            children={({isActive}) => {
+                return (<ListItemButton selected={!!isActive}>
+                    <ListItemIcon>
+                        <HiOutlineUserGroup/>
+                    </ListItemIcon>
+                    <ListItemText primary="Users"/>
+                </ListItemButton>)
+            }}
+        />
     </React.Fragment>
 );
 

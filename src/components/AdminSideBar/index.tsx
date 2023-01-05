@@ -1,6 +1,4 @@
-import {Box, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
-import _ from 'lodash';
-import {Outlet} from 'react-router-dom';
+import { Divider, List} from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import * as React from "react";
 import {styled} from "@mui/material/styles";
@@ -45,7 +43,6 @@ const AdminSideBar = () => {
                     px: [1],
                 }}
             >
-
             </Toolbar>
             <Divider/>
             <List component="nav">

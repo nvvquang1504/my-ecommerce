@@ -71,10 +71,6 @@ const Header = () => {
                 }))
             }
         });
-        // return () => {
-        //     console.log('end effect')
-        //     unsub();
-        // }
     }, [])
     return (
         <header>
