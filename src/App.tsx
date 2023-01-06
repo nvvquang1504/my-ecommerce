@@ -29,7 +29,8 @@ function App() {
                             <Admin/>
                         }/>
                     }>
-                        <Route path={'products'} element={<Products/>}/>
+                        <Route path={'products'} element={<Products/>}>
+                        </Route>
                         <Route path={'users'} element={<h1>User tab</h1>}/>
                         <Route path={'dashboard'} element={<Dashboard/>}/>
                     </Route>
