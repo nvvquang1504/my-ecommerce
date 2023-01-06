@@ -25,7 +25,7 @@ const AddForm = () => {
     const [file, setFile] = useState<any>(null);
     const addProduct = async (event: SyntheticEvent): Promise<any> => {
         // formRef.current?.reset();
-
+        console.log(file)
         const productStorageRef = ref(storage, 'products');
         const productRef = collection(db, 'products');
         const querySnapshot = await getDocs(productRef);
@@ -33,6 +33,7 @@ const AddForm = () => {
         await querySnapshot.forEach((doc) => {
             docIdList.push(doc.id);
         })
+        // Create ID base on product information
         let isExist = docIdList.some(id => id === idRef.current?.value);
         if (!isExist && idRef.current?.value) {
             await setDoc(doc(db, "products", idRef.current.value), {
@@ -42,6 +43,7 @@ const AddForm = () => {
                 description: desRef.current?.value,
                 brand: brandRef.current?.value
             });
+            setImgUrl('')
         } else {
             toast.error('can not add data with duplicate id');
         }
