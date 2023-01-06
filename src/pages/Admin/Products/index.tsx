@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Box, Tab, Tabs, Typography,} from '@mui/material';
 import AddForm from "./AddForm";
+import ProductList from "./ProductList";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -46,7 +47,7 @@ const Products = () => {
             <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="Add Products"  {...a11yProps(0)} />
-                    <Tab label="Item Two" {...a11yProps(1)} />
+                    <Tab label="Product List" {...a11yProps(1)} />
                     <Tab label="Item Three" {...a11yProps(2)} />
                 </Tabs>
             </Box>
@@ -55,6 +56,7 @@ const Products = () => {
             </TabPanel>
             <TabPanel value={value} index={1}>
                 {/*Item Two*/}
+                <ProductList/>
             </TabPanel>
             <TabPanel value={value} index={2}>
                 {/*Item Three*/}
