@@ -37,7 +37,7 @@ function a11yProps(index: number) {
 }
 
 const Products = () => {
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(1);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -55,11 +55,9 @@ const Products = () => {
                 <AddForm/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                {/*Item Two*/}
                 <ProductList/>
             </TabPanel>
             <TabPanel value={value} index={2}>
-                {/*Item Three*/}
             </TabPanel>
         </Box>
     );

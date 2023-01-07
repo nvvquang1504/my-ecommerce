@@ -11,7 +11,6 @@ import Products from "./pages/Admin/Products";
 import {ToastContainer} from "react-toastify";
 import Admin from "./pages/Admin";
 import Dashboard from "./components/Dashboard";
-import {Navigate} from "react-router-dom";
 
 
 function App() {
