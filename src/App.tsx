@@ -1,6 +1,6 @@
 import React from "react";
 import './App.scss'
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import Login from "./pages/Auth/Login";
@@ -11,6 +11,8 @@ import Products from "./pages/Admin/Products";
 import {ToastContainer} from "react-toastify";
 import Admin from "./pages/Admin";
 import Dashboard from "./components/Dashboard";
+import AddForm from "./pages/Admin/Products/AddForm";
+import ProductList from "./pages/Admin/Products/ProductList";
 
 
 function App() {
@@ -29,6 +31,9 @@ function App() {
                         }/>
                     }>
                         <Route path={'products'} element={<Products/>}>
+                            <Route index element={<Navigate to={'add'}/>}/>
+                            <Route path={'add'} element={<AddForm/>}></Route>
+                            <Route path={'list'} element={<ProductList/>}/>
                         </Route>
                         <Route path={'users'} element={<h1>User tab</h1>}/>
                         <Route path={'dashboard'} element={<Dashboard/>}/>

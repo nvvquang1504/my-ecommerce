@@ -14,7 +14,7 @@ import {IoIosNotificationsOutline} from 'react-icons/io'
 import AdminSideBar from "../../components/AdminSideBar";
 import {Outlet} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
+import './style.scss';
 
 const drawerWidth: number = 240;
 
@@ -116,7 +116,9 @@ function Admin() {
                     }}
                 >
                     <Toolbar/>
-                    <Container maxWidth="lg">
+                    <Container maxWidth="lg" sx={{
+                        overflow: 'hidden'
+                    }}>
                         <Outlet/>
                     </Container>
                 </Box>

@@ -1,7 +1,6 @@
-import React, {useState} from 'react';
-import {Box, Tab, Tabs, Typography,} from '@mui/material';
-import AddForm from "./AddForm";
-import ProductList from "./ProductList";
+import React, {useEffect, useState} from 'react';
+import {Box, Tab, Tabs} from '@mui/material';
+import {useNavigate, Outlet, useLocation, useNavigation, useMatch} from "react-router-dom";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -37,29 +36,42 @@ function a11yProps(index: number) {
 }
 
 const Products = () => {
-    const [value, setValue] = useState(1);
-
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setValue(newValue);
+    const [activeTab, setActiveTab] = useState<string | null>(null);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+        navigate(newValue);
+        setActiveTab(newValue);
     };
+    useEffect(() => {
+        const path = location.pathname;
+        const pathDeps = path.split('/');
+        const isMatched = pathDeps.length === 4 && pathDeps[3];
+        if (isMatched) {
+            const matchedOutlet = pathDeps[3];
+            navigate(matchedOutlet);
+            setActiveTab(matchedOutlet);
+        }
+    }, [])
     return (
-        <Box sx={{width: '100%'}}>
-            <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="Add Products"  {...a11yProps(0)} />
-                    <Tab label="Product List" {...a11yProps(1)} />
-                    <Tab label="Item Three" {...a11yProps(2)} />
-                </Tabs>
-            </Box>
-            <TabPanel value={value} index={0}>
-                <AddForm/>
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                <ProductList/>
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-            </TabPanel>
-        </Box>
+        <>
+            {
+                activeTab
+                    ? <Box sx={{width: '100%'}}>
+                        <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+                            <Tabs value={activeTab} onChange={handleChange} aria-label="basic tabs example">
+                                <Tab value={'add'} label="Add Products"  {...a11yProps(0)} />
+                                <Tab value={'list'} label="Product List" {...a11yProps(1)} />
+                            </Tabs>
+                        </Box>
+                        <Box p={3}>
+                            <Outlet/>
+                        </Box>
+                    </Box>
+                    : null
+            }
+        </>
+
     );
 };
 

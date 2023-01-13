@@ -1,11 +1,11 @@
-import styles from './style.module.scss';
+import styles from './style.scss';
 import Slider from "../../components/Slider";
 import {withLayout} from "../../utils/withLayout";
 const Home = () => {
     return (
-        <div>
+        <section className={'home-page'}>
             <Slider/>
-        </div>
+        </section>
     );
 };
 
