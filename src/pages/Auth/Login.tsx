@@ -4,7 +4,6 @@ import styles from './style.module.scss';
 import loginImg from '../../assets/login.png';
 import {Link, useNavigate} from 'react-router-dom';
 import {FaGoogle} from 'react-icons/fa';
-import Card from "../../components/Card";
 import {toast} from "react-toastify";
 import {signInWithEmailAndPassword} from "firebase/auth";
 import {auth} from "../../services/firebase";
@@ -63,7 +62,7 @@ const Login = () => {
                 <div className={styles['img']}>
                     <img src={loginImg} alt="" width={400}/>
                 </div>
-                <Card>
+                <div className={'form-card-wrapper'}>
                     <div className={styles["form"]}>
                         <h2>Login</h2>
                         <form onSubmit={loginWithUser}>
@@ -83,7 +82,7 @@ const Login = () => {
                     </span>
                         </form>
                     </div>
-                </Card>
+                </div>
             </section>
         </>
     )

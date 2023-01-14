@@ -3,9 +3,10 @@ import {query, where, getDocs} from "firebase/firestore";
 import {productRef, productStorageRef} from '../../../../services/firebase'
 import {useEffect, useState} from "react";
 import {toast} from "react-toastify";
-import {IProduct} from '../../interfaces'
+import {IProduct} from '../../../../interfaces'
 import {DataGrid, GridColDef} from "@mui/x-data-grid";
 import {Box, Paper} from "@mui/material";
+import {useProductList} from "../../../../hooks/useProductList";
 
 interface GridColOpt extends GridColDef {
     field: 'id' | 'category' | 'title' | 'description' | 'image' | 'price' | 'rating'
@@ -26,20 +27,7 @@ const columns: GridColOpt[] = [
     {field: 'description', headerName: 'Description', flex: 1},
 ];
 const ProductList = () => {
-    const [productList, setProductList] = useState<Array<{}>>([]);
-    /**@DidMount-------------------------------------------------------------- */
-    useEffect(() => {
-        const fetchData = async () => {
-            const querySnapshot = await getDocs(productRef);
-            const data: IProduct[] = [];
-            querySnapshot.forEach((doc) => {
-                const product: IProduct = doc.data();
-                data.push(product);
-            });
-            setProductList(data);
-        };
-        fetchData().catch(e => toast.error(e));
-    }, []);
+    const productList = useProductList();
     return (
         <Paper sx={{
             height: '500px'

@@ -51,6 +51,9 @@ const Products = () => {
             const matchedOutlet = pathDeps[3];
             navigate(matchedOutlet);
             setActiveTab(matchedOutlet);
+        } else {
+            navigate('add');
+            setActiveTab('add');
         }
     }, [])
     return (

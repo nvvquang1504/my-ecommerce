@@ -17,7 +17,7 @@ import {ref, uploadBytes, getDownloadURL} from "firebase/storage";
 import {toast} from 'react-toastify';
 import {productRef, productStorageRef} from '../../../../services/firebase'
 import Upload from "./Upload";
-import {IProduct} from '../../interfaces'
+import {IProduct} from '../../../../interfaces'
 import _, {forEach} from 'lodash';
 import {faker} from '@faker-js/faker'
 

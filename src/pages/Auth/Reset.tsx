@@ -1,7 +1,6 @@
 import React, {useRef} from "react";
 import styles from "./style.module.scss";
 import forgotImg from "../../assets/forgot.png";
-import Card from "../../components/Card";
 import {Link} from "react-router-dom";
 import {sendPasswordResetEmail} from "firebase/auth";
 import {auth} from "../../services/firebase";
@@ -30,7 +29,7 @@ const Reset = () => {
             <div className={styles['img']}>
                 <img src={forgotImg} alt="" width={400}/>
             </div>
-            <Card>
+            <div className={'form-card-wrapper'}>
                 <div className={styles.form}>
                     <h2>Reset Password</h2>
                     <form onSubmit={resetPassword}>
@@ -46,7 +45,7 @@ const Reset = () => {
                         </div>
                     </form>
                 </div>
-            </Card>
+            </div>
         </section>
     );
 };

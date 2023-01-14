@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "./style.module.scss";
 import registerImg from "../../assets/register.png";
-import Card from "../../components/Card";
+
 import {Link, useNavigate} from "react-router-dom";
 import {useState, useRef} from "react";
 import {toast} from "react-toastify";
@@ -47,7 +47,7 @@ const Register = () => {
         <>
             {isLoading && <Loader/>}
             <section className={`container ${styles["auth"]}`}>
-                <Card>
+                <div className={'form-card-wrapper'}>
                     <div className={styles["form"]}>
                         <h2>Register</h2>
                         <form onSubmit={registerUser}>
@@ -61,7 +61,7 @@ const Register = () => {
                         </span>
                         </form>
                     </div>
-                </Card>
+                </div>
                 <div className={styles['img']}>
                     <img src={registerImg} alt="" width={400}/>
                 </div>
