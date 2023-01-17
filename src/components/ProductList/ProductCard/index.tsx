@@ -1,7 +1,10 @@
 import './style.scss';
 import {FaStar} from 'react-icons/fa'
 import {IProduct} from "../../../interfaces";
-import {Typography} from "@mui/material";
+import {Typography, Button} from "@mui/material";
+import {blue, green} from '@mui/material/colors';
+import {CgDetailsMore} from 'react-icons/cg';
+import {BsCartPlus} from 'react-icons/bs'
 
 interface IProductCardProps {
     product: IProduct
@@ -28,7 +31,14 @@ const ProductCard = (props: IProductCardProps): JSX.Element => {
                 <FaStar/>
             </div>
             <div className="bay">
-                <button>Bay now</button>
+                <button className={'bay-btn btn-detail'}>
+                    <CgDetailsMore size={20} fontWeight={600}/>
+                    Detail
+                </button>
+                <button className={'bay-btn btn-add-to-cart'}>
+                    <BsCartPlus size={20}  fontWeight={600}/>
+                    Add to Cart
+                </button>
             </div>
         </div>
     );

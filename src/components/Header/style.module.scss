@@ -14,6 +14,7 @@ header {
   color: #fff;
   position: sticky;
   top: 0;
+  z-index: 999;
   .header {
     width: 100%;
     height: $header-height;
@@ -141,7 +142,6 @@ header {
       height: 100vh;
       background-color: var(--dark-blue);
       padding: 1rem;
-      z-index: 999;
       transform: translateX(-200%);
       transition: all 0.3s;
 

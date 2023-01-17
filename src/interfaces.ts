@@ -13,12 +13,10 @@ export interface IFirestoreProduct extends IProduct {
     count?: number
 }
 
-/*
-*
-    productName
-    price
-    product
-    productAdjective
-    productDescription
-    productMaterial
-* */
+export interface IComponentWithFilterProps {
+    filterType: string,
+    productList?: IProduct[],
+    checkList?: { [key: string]: boolean } | null,
+    filterOpt?: { checkList?: { [key: string]: boolean } | null } | null,
+
+}
