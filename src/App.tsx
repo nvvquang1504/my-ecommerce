@@ -2,6 +2,7 @@ import React from "react";
 import './App.scss'
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Home from "./pages/Home";
+import Detail from "./pages/Detail";
 import Contact from "./pages/Contact";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
@@ -38,6 +39,7 @@ function App() {
                         <Route path={'users'} element={<h1>User tab</h1>}/>
                         <Route path={'dashboard'} element={<Dashboard/>}/>
                     </Route>
+                    <Route path={'detail/:id'} element={<Detail/>}/>
                     <Route path={'*'} element={<h1>Not found</h1>}/>
                 </Routes>
             </BrowserRouter>

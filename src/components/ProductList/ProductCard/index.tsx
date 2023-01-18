@@ -5,6 +5,7 @@ import {Typography, Button} from "@mui/material";
 import {blue, green} from '@mui/material/colors';
 import {CgDetailsMore} from 'react-icons/cg';
 import {BsCartPlus} from 'react-icons/bs'
+import {useNavigate} from "react-router-dom";
 
 interface IProductCardProps {
     product: IProduct
@@ -12,6 +13,10 @@ interface IProductCardProps {
 
 const ProductCard = (props: IProductCardProps): JSX.Element => {
     const {id, image, price, title, description} = props.product;
+    const navigate = useNavigate();
+    const handleClickDetail = (id: any): void => {
+        navigate(`/detail/${id}`);
+    }
     return (
         <div className={'product'}>
             <div className="image">
@@ -31,12 +36,14 @@ const ProductCard = (props: IProductCardProps): JSX.Element => {
                 <FaStar/>
             </div>
             <div className="bay">
-                <button className={'bay-btn btn-detail'}>
+                <button className={'bay-btn btn-detail'} onClick={() => {
+                    handleClickDetail(id)
+                }}>
                     <CgDetailsMore size={20} fontWeight={600}/>
                     Detail
                 </button>
                 <button className={'bay-btn btn-add-to-cart'}>
-                    <BsCartPlus size={20}  fontWeight={600}/>
+                    <BsCartPlus size={20} fontWeight={600}/>
                     Add to Cart
                 </button>
             </div>
