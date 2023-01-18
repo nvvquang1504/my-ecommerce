@@ -19,7 +19,7 @@ const StarGroup = (props: { value: number }) => {
             {
                 Array.from(Array(props.value).keys()).map(() => {
                     return (
-
+                        <Grid item xs={4}></Grid>
                     )
                 })
             }
