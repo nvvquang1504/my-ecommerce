@@ -4,13 +4,16 @@ import {Link, NavLink, useNavigate} from 'react-router-dom';
 import {HiShoppingCart, HiOutlineMenuAlt3} from 'react-icons/hi';
 import {FaTimes, FaUserCircle} from 'react-icons/fa';
 import {onAuthStateChanged, signOut} from 'firebase/auth';
-import {auth} from "../../services/firebase";
+import {auth, cartRef} from "../../services/firebase";
 import {toast} from "react-toastify";
 import {useAppSelector, useAppDispatch} from '../../redux/hooks';
 import {SET_ACTIVE_USER, REMOVE_ACTIVE_USER} from "../../redux/slice/authSlice";
+import {SET_CART_LIST} from "../../redux/slice/cartSlice";
 import _ from 'lodash';
 import ShowOnLogin from "../ShowOnLogin";
 import ShowOnLogout from "../ShowOnLogout";
+import {collection, getDocs} from "firebase/firestore";
+import CartPopover from "./CartPopover";
 
 const logo: JSX.Element = (
     <div className={styles["logo"]}>
@@ -25,18 +28,27 @@ const logo: JSX.Element = (
         </Link>
     </div>
 )
-const cart: JSX.Element = (
-    <span className={styles["cart"]}>
+const generateCart: (quantity: number) => JSX.Element = (quantity) => {
+    return (
+        <span className={styles["cart"]}>
         <Link to={'/cart'}>
             Cart
             <HiShoppingCart size={20}/>
-            <p>0</p>
+            <p>{quantity}</p>
         </Link>
     </span>
-)
+    )
+
+}
+
 const Header = () => {
+    const [headerState, setHeaderState] = useState({
+        showMenu: false,
+        cartItems: [],
+    })
     const [showMenu, setShowMenu] = useState(false);
     const userName = useAppSelector(state => state.auth.userName);
+    const cartList = useAppSelector(state => state.cart.cartList);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const toggleMenu = () => {
@@ -60,10 +72,19 @@ const Header = () => {
         });
     }
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, async (user) => {
             if (user) {
+                const cartData: {}[] = []
                 const {uid, email, displayName} = user;
-                // setDispayName(displayName);
+                const cartItemCollection = collection(cartRef, uid, 'cartItems');
+                // Get all document of the 'cart' collection
+                const querySnapshot = await getDocs(cartItemCollection)
+                querySnapshot.forEach((doc) => {
+                    // doc.data() is never undefined for query doc snapshots
+                    cartData.push(doc.data());
+                });
+                // Set card list
+                dispatch(SET_CART_LIST(cartData));
                 dispatch(SET_ACTIVE_USER({
                     userId: uid,
                     email: email,
@@ -110,7 +131,7 @@ const Header = () => {
                                 </NavLink>
                             </ShowOnLogout>
                             <ShowOnLogin>
-                                <a href="" style={{color:'#ff7722'}}>
+                                <a href="" style={{color: '#ff7722'}}>
                                     <FaUserCircle size={16}/>
                                     Hi, {userName}
                                 </a>
@@ -125,12 +146,13 @@ const Header = () => {
                                 <NavLink to={'/'} onClick={logoutUser}>Sign out</NavLink>
                             </ShowOnLogin>
                         </span>
-                        {cart}
+                        <CartPopover cartList={cartList}/>
+                        {/*{generateCart(cartList ? cartList.length : 0)}*/}
                     </div>
 
                 </nav>
                 <div className={styles["menu-icon"]}>
-                    {cart}
+                    {/*{generateCart(cartList ? cartList.length : 0)}*/}
                     <HiOutlineMenuAlt3 onClick={toggleMenu} size={28}/>
                 </div>
             </div>

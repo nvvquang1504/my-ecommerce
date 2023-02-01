@@ -27,4 +27,5 @@ export const db = getFirestore(app);
 export const storage = getStorage(app);
 export const productStorageRef = ref(storage, 'products');
 export const productRef = collection(db, 'products');
+export const cartRef = collection(db, 'cart');
 export default app;

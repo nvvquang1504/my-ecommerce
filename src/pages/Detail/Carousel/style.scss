@@ -1,0 +1,64 @@
+@use '../../../scss/_variables.scss';
+
+.my-swiper-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .swiper.swiper-initialized.swiper-vertical {
+    height: 100%;
+
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      padding-bottom: 1px;
+      padding-top: 1px;
+
+      div {
+        //user-select: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        //border: 1px solid variables.$border-color-gray;
+        width: 100%;
+        height: 100%;
+
+        &.active {
+          border: 1px solid orange;
+        }
+
+        &:hover {
+          border: 1px solid orange;
+        }
+      }
+    }
+
+    //.swiper-slide-active{
+    //  div{
+    //    border: 1px solid orange;
+    //  }
+    //}
+
+
+  }
+
+  .swiper-button-prev, .swiper-button-next {
+    left: 50%;
+    transform: translateX(-50%) rotate(90deg);
+
+    &.swiper-button-disabled {
+      display: none;
+    }
+  }
+
+  .swiper-button-prev {
+    top: -1.2rem;
+  }
+
+  .swiper-button-next {
+    top: calc(100% + 1.2rem);
+  }
+
+}

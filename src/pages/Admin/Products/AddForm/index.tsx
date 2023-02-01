@@ -19,7 +19,7 @@ import {productRef, productStorageRef} from '../../../../services/firebase'
 import Upload from "./Upload";
 import {IProduct} from '../../../../interfaces'
 import _, {forEach} from 'lodash';
-import {faker} from '@faker-js/faker'
+
 
 const TextField = (props: TextFieldProps) => {
     return <MuiText  {...props} size={'small'} variant={'standard'} InputLabelProps={{shrink: true}}/>
@@ -66,43 +66,31 @@ const AddForm = () => {
             toast.error('You need to upload image for this product');
         }
     }
-    // const addProduct = async (event: SyntheticEvent): Promise<any> => {
-    //     const product: IProduct = getInputData();
-    //     // Create reference to products storage
-    //     let docIdList: string[] = [];
-    //     try {
-    //         const querySnapshot = await getDocs(productRef);
-    //         // First upload image to storage
-    //         const uploadResult = await uploadImgToStorage();
-    //         if (uploadResult) {
-    //             // Assign upload result ref to variable
-    //             const ref = uploadResult.ref;
-    //             // Then retrieve image url with getDownloadURL(ref)
-    //             const url = await getDownloadURL(ref);
-    //             const resultAddDoc = await addDoc(productRef, {
-    //                 ...product,
-    //                 url
-    //             });
-    //             toast.success('Adding Product successfully!');
-    //             formRef.current?.reset();
-    //         }
-    //     } catch (e) {
-    //         console.log(e)
-    //     }
-    // }
-    const addFakerProduct = async (): Promise<any> => {
-        for (let i = 0; i < data.length; i++) {
-            try {
-                const resultAddDoc = await addDoc(productRef, data[i]);
-                // formRef.current?.reset();
-            } catch (e) {
-                toast.error('error');
-            }
-        }
-        toast.success('Adding Product successfully!');
-        // const product: IProduct = generateFakerData();
-
+    const addProduct = async (event: SyntheticEvent): Promise<any> => {
+        // const product: IProduct = getInputData();
+        // // Create reference to products storage
+        // let docIdList: string[] = [];
+        // try {
+        //     const querySnapshot = await getDocs(productRef);
+        //     // First upload image to storage
+        //     const uploadResult = await uploadImgToStorage();
+        //     if (uploadResult) {
+        //         // Assign upload result ref to variable
+        //         const ref = uploadResult.ref;
+        //         // Then retrieve image url with getDownloadURL(ref)
+        //         const url = await getDownloadURL(ref);
+        //         const resultAddDoc = await addDoc(productRef, {
+        //             ...product,
+        //             url
+        //         });
+        //         toast.success('Adding Product successfully!');
+        //         formRef.current?.reset();
+        //     }
+        // } catch (e) {
+        //     console.log(e)
+        // }
     }
+
     const saveFile = (file: any): void => {
         const url = URL.createObjectURL(file);
         setImgUrl(url);
@@ -164,7 +152,7 @@ const AddForm = () => {
                 </Grid>
             </Grid>
             <Stack p={2}>
-                <Button variant={'contained'} onClick={addFakerProduct}>Add Product</Button>
+                <Button variant={'contained'} onClick={addProduct}>Add Product</Button>
             </Stack>
         </Paper>
     );

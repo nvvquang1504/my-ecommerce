@@ -84,26 +84,26 @@ header {
   .header-right {
     display: flex;
 
-    .cart a {
-      display: flex;
-      color: #fff;
-      position: relative;
-
-      &:hover {
-        color: orangered;
-      }
-
-      &.active {
-        color: var(--color-danger);
-      }
-
-      p {
-        position: absolute;
-        top: -1rem;
-        right: -1rem;
-        font-weight: 500;
-      }
-    }
+    //.cart a {
+    //  display: flex;
+    //  color: #fff;
+    //  position: relative;
+    //
+    //  &:hover {
+    //    color: orangered;
+    //  }
+    //
+    //  &.active {
+    //    color: var(--color-danger);
+    //  }
+    //
+    //  p {
+    //    position: absolute;
+    //    top: -1rem;
+    //    right: -1rem;
+    //    font-weight: 500;
+    //  }
+    //}
 
     span {
       margin: 0 5px;
@@ -186,20 +186,21 @@ header {
       .header-right {
         display: block;
 
-        .cart {
-          // display: block;
-          // padding: 5px 0;
-          border-bottom: 1px solid #333;
-          // a {
-          //   position: relative;
-          //   p {
-          //     position: absolute;
-          //     top: -1rem;
-          //     left: 5rem;
-          //     font-weight: 500;
-          //   }
-          // }
-        }
+
+        //.cart {
+        //  // display: block;
+        //  // padding: 5px 0;
+        //  border-bottom: 1px solid #333;
+        //  // a {
+        //  //   position: relative;
+        //  //   p {
+        //  //     position: absolute;
+        //  //     top: -1rem;
+        //  //     left: 5rem;
+        //  //     font-weight: 500;
+        //  //   }
+        //  // }
+        //}
 
         .links {
           display: block;
@@ -213,27 +214,27 @@ header {
         }
       }
     }
-    .cart {
-      display: block;
-      padding: 5px 0;
-      // border-bottom: 1px solid #333;
-      a {
-        color: #fff;
-        position: relative;
-
-        &:hover {
-          color: orangered;
-        }
-
-        p {
-          position: absolute;
-          top: -1rem;
-          left: 5rem;
-          font-weight: 500;
-          color: #fff;
-        }
-      }
-    }
+    //.cart {
+    //  display: block;
+    //  padding: 5px 0;
+    //  // border-bottom: 1px solid #333;
+    //  a {
+    //    color: #fff;
+    //    position: relative;
+    //
+    //    &:hover {
+    //      color: orangered;
+    //    }
+    //
+    //    p {
+    //      position: absolute;
+    //      top: -1rem;
+    //      left: 5rem;
+    //      font-weight: 500;
+    //      color: #fff;
+    //    }
+    //  }
+    //}
     .show-nav {
       transform: translateX(0);
     }
