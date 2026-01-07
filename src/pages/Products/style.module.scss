@@ -1,0 +1,41 @@
+.productsPage {
+    min-height: 70vh;
+    background: #f9f9f9;
+    padding-bottom: 3rem;
+
+    .header {
+        background: linear-gradient(135deg, #ff7722 0%, #e66612 100%);
+        color: white;
+        text-align: center;
+        padding: 3rem 1rem;
+        margin-bottom: 2rem;
+
+        h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        p {
+            margin: 0;
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .productsPage {
+        .header {
+            padding: 2rem 1rem;
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+        }
+    }
+}

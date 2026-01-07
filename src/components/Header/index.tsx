@@ -25,18 +25,11 @@ const logo: JSX.Element = (
         </Link>
     </div>
 )
-const cart: JSX.Element = (
-    <span className={styles["cart"]}>
-        <Link to={'/cart'}>
-            Cart
-            <HiShoppingCart size={20}/>
-            <p>0</p>
-        </Link>
-    </span>
-)
+
 const Header = () => {
     const [showMenu, setShowMenu] = useState(false);
     const userName = useAppSelector(state => state.auth.userName);
+    const cartTotalQuantity = useAppSelector(state => state.cart.totalQuantity);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const toggleMenu = () => {
@@ -73,9 +66,20 @@ const Header = () => {
         });
         // return () => {
         //     console.log('end effect')
-        //     unsub();
+            //     unsub();
         // }
     }, [])
+
+    const cart: JSX.Element = (
+        <span className={styles["cart"]}>
+            <Link to={'/cart'}>
+                Cart
+                <HiShoppingCart size={20}/>
+                <p>{cartTotalQuantity}</p>
+            </Link>
+        </span>
+    )
+
     return (
         <header>
             <div className={styles.header}>
@@ -95,6 +99,13 @@ const Header = () => {
                                 to={'/'}
                                 className={activeLink}>
                                 Home
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                to={'/products'}
+                                className={activeLink}>
+                                Products
                             </NavLink>
                         </li>
                         <li>

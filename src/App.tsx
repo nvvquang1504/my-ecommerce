@@ -7,6 +7,8 @@ import Contact from "./pages/Contact";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import Reset from "./pages/Auth/Reset";
+import Products from "./pages/Products";
+import Cart from "./pages/Cart";
 import app from './services/firebase'
 import {ToastContainer} from "react-toastify";
 import React from "react";
@@ -18,6 +20,8 @@ function App() {
                 <Header/>
                 <Routes>
                     <Route path={'/'} element={<Home/>}/>
+                    <Route path={'/products'} element={<Products/>}/>
+                    <Route path={'/cart'} element={<Cart/>}/>
                     <Route path={'/contact'} element={<Contact/>}/>
                     <Route path={'/login'} element={<Login/>}/>
                     <Route path={'/register'} element={<Register/>}/>
